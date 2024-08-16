@@ -82,69 +82,74 @@ class CarMapCreate
             Console.WriteLine("data is null");
             return;
         }
-        else if (datalist[x, y].havedata)
+        else
         {
-            return;
-        }
-        else if (!datalist[x, y].havedata)
-        {
-            //该点设为车头
-            datalist[x, y].ishead = true;
-            datalist[x, y].havedata = true;
-            //正式数据处理
-            System.Random random = new System.Random();
-            List<int> carlength = new List<int> { 1, 2, 3, };
+            if (datalist[x, y].havedata)
+            {
+                return;
+            }
+            else if (!datalist[x, y].havedata)
+            {
+                //该点设为车头
+                datalist[x, y].ishead = true;
+                datalist[x, y].havedata = true;
+                //正式数据处理
+                System.Random random = new System.Random();
+                List<int> carlength = new List<int> { 1, 2, 3, };
 
-            int[] carlookat2 = checkspace(2, x, y, datalist);
-            int[] carlookat3 = checkspace(3, x, y, datalist);
-            //确认是否可以生成某个长度的车辆
-            if (carlookat2.Length == 0)
-            {
-                carlength.Remove(2);
-            }
-            if (carlookat3.Length == 0)
-            {
-                carlength.Remove(3);
-            }
-            //获得车的长度
-            int carlengthnumber = carlength[random.Next(0, carlength.Count)];
-            //获得车的朝向
-            int carlookat = 0;
-            if (carlengthnumber == 1)
-            {
-                carlookat = random.Next(1, 4 + 1);
-            }
-            if (carlengthnumber == 2)
-            {
-                carlookat = carlookat2[random.Next(0, carlookat2.Length)];
-            }
-            if (carlengthnumber == 3)
-            {
-                carlookat = carlookat3[random.Next(0, carlookat3.Length)];
-            }
-            datalist[x, y].car_length = carlengthnumber;
-            datalist[x, y].car_lookat = carlookat;
-            for (int q = 1; q < carlengthnumber; q++)
-            {
-                if (carlookat == 1)
+                int[] carlookat2 = checkspace(2, x, y, datalist);
+                int[] carlookat3 = checkspace(3, x, y, datalist);
+                //确认是否可以生成某个长度的车辆
+                if (carlookat2.Length == 0)
                 {
-                    datalist[x - q, y].havedata = true;
+                    carlength.Remove(2);
                 }
-                if (carlookat == 2)
+                if (carlookat3.Length == 0)
                 {
-                    datalist[x, y + q].havedata = true;
+                    carlength.Remove(3);
+                }
+                //获得车的长度
+                int carlengthnumber = carlength[random.Next(0, carlength.Count)];
+                //获得车的朝向
+                int carlookat = 0;
+                if (carlengthnumber == 1)
+                {
+                    carlookat = random.Next(1, 4 + 1);
+                }
+                if (carlengthnumber == 2)
+                {
+                    carlookat = carlookat2[random.Next(0, carlookat2.Length)];
+                }
+                if (carlengthnumber == 3)
+                {
+                    carlookat = carlookat3[random.Next(0, carlookat3.Length)];
+                }
+                datalist[x, y].car_length = carlengthnumber;
+                datalist[x, y].car_lookat = carlookat;
+                for (int q = 1; q < carlengthnumber; q++)
+                {
+                    if (carlookat == 1)
+                    {
+                        datalist[x - q, y].havedata = true;
+                    }
+                    if (carlookat == 2)
+                    {
+                        datalist[x, y + q].havedata = true;
 
-                }
-                if (carlookat == 3)
-                {
-                    datalist[x + q, y].havedata = true;
-                }
-                if (carlookat == 4)
-                {
-                    datalist[x, y - q].havedata = true;
+                    }
+                    if (carlookat == 3)
+                    {
+                        datalist[x + q, y].havedata = true;
+                    }
+                    if (carlookat == 4)
+                    {
+                        datalist[x, y - q].havedata = true;
+                    }
                 }
             }
+            datalist1.Add(datalist[x,y]);
         }
+
     }
     public Data? GetElement(int x, int y, Data[,] datalist)
     {
