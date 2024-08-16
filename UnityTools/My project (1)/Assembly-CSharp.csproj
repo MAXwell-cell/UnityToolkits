@@ -64,6 +64,7 @@
     <Analyzer Include="D:\2022.3.14f1c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\OutData.cs" />
     <Compile Include="Assets\Script\Data.cs" />
     <Compile Include="Assets\Script\CreateCar.cs" />
     <Compile Include="Assets\Script\testScript.cs" />

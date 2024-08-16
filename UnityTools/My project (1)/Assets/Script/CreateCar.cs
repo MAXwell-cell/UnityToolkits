@@ -10,6 +10,7 @@ public class CreateCar : MonoBehaviour
     public GameObject car1;
     public GameObject car2;
     public GameObject car3;
+    public GameObject otherobject;
     private GameObject selfobject;
     public List<GameObject> carlist = new List<GameObject> { };
     // Start is called before the first frame update
@@ -60,7 +61,12 @@ public class CreateCar : MonoBehaviour
                 left++;
             }
         }
-        selfobject.transform.Rotate(0, 90, 0);
+        selfobject.transform.Rotate(0, 45, 0);
+        selfobject.transform.position = new UnityEngine.Vector3(0, 0, -20);
+        foreach (GameObject car in carlist)
+        {
+            car.transform.SetParent(otherobject.transform);
+        }
     }
     private void dataCreateCar(int i, int j, Data[,] datalist)
     {
