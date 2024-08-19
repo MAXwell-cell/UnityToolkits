@@ -11,7 +11,7 @@ class CarMapCreate
     public List<int> carlengthlist = new List<int> { 1, 2, 3 };
     private List<Data> datalist1 = new List<Data>{};
     public List<int> carclass = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
-    public List<Data> Main()
+    public Data[,] Main()
     {
         CarMapCreate data = new CarMapCreate();
         Data[,] datalist = new Data[data.height, data.width];
@@ -23,7 +23,7 @@ class CarMapCreate
         // Console.WriteLine();
         // data.console_data_car_lookat_array(datalist);
 
-        return data.datalist1;
+        return datalist;
     }
     //螺旋遍历数组
     public void SpiralTraverse(Data[,] datalist,CarMapCreate data)
