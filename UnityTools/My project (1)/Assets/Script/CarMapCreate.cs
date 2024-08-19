@@ -1,29 +1,30 @@
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+#nullable enable
 class CarMapCreate
 {
-    public int height = 15;
-    public int width = 15;
-    public List<Data> datalist1 = new List<Data> { };
-    public Data[,] Main()
+    public int height = 3;
+    public int width = 3;
+    public List<int> carlengthlist = new List<int> { 1, 2, 3 };
+    private List<Data> datalist1 = new List<Data>{};
+    public List<int> carclass = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
+    public List<Data> Main()
     {
         CarMapCreate data = new CarMapCreate();
         Data[,] datalist = new Data[data.height, data.width];
         data.create_data_array(datalist);
         data.SpiralTraverse(datalist);
+        datalist1.Add(datalist[0,0]);
+        // data.console_data_ishead_array(datalist);
+        // Console.WriteLine();
+        // data.console_data_car_length_array(datalist);
+        // Console.WriteLine();
+        // data.console_data_car_lookat_array(datalist);
 
-        data.console_data_ishead_array(datalist);
-        Console.WriteLine();
-        data.console_data_car_length_array(datalist);
-        Console.WriteLine();
-        data.console_data_car_lookat_array(datalist);
-
-        return datalist;
+        return datalist1;
     }
     //螺旋遍历数组
     public void SpiralTraverse(Data[,] datalist)
@@ -39,6 +40,7 @@ class CarMapCreate
         int left = 0, right = cols - 1;
         while (top <= bottom && left <= right)
         {
+            Debug.Log(datalist1.Count);
             // Traverse from left to right along the top row
             for (int i = left; i <= right; i++)
             {
@@ -90,13 +92,15 @@ class CarMapCreate
             }
             else if (!datalist[x, y].havedata)
             {
+                List<int> carlength = carlengthlist;
                 //该点设为车头
                 datalist[x, y].ishead = true;
                 datalist[x, y].havedata = true;
                 //正式数据处理
                 System.Random random = new System.Random();
-                List<int> carlength = new List<int> { 1, 2, 3, };
-
+                //该车的类型赋值
+                datalist[x, y].car_class = carclass[random.Next(1, carclass.Count)];
+                int[] carlookat1 = checkspace(1, x, y, datalist);
                 int[] carlookat2 = checkspace(2, x, y, datalist);
                 int[] carlookat3 = checkspace(3, x, y, datalist);
                 //确认是否可以生成某个长度的车辆
@@ -114,7 +118,15 @@ class CarMapCreate
                 int carlookat = 0;
                 if (carlengthnumber == 1)
                 {
-                    carlookat = random.Next(1, 4 + 1);
+                    if (carlookat1.Length == 0)
+                    {
+                        UnityEngine.Debug.Log("carlookat1长度为0!");
+                    }
+                    else
+                    {
+                        carlookat = carlookat1[random.Next(0, carlookat1.Length)];
+                    }
+
                 }
                 if (carlengthnumber == 2)
                 {
@@ -147,9 +159,8 @@ class CarMapCreate
                     }
                 }
             }
-            datalist1.Add(datalist[x,y]);
+            datalist1.Add(datalist[x, y]);
         }
-
     }
     public Data? GetElement(int x, int y, Data[,] datalist)
     {
@@ -163,38 +174,90 @@ class CarMapCreate
     {
         int[] carlookat = new int[] { 1, 2, 3, 4 };
         List<int> carlooklist = new List<int>(carlookat);
-        for (int i = 1; i < carlength; i++)
+        if (carlength == 1)
         {
-            if (carlooklist.Contains(1))
+            for (int i = 1; i <= carlength; i++)
             {
-                Data? top = GetElement(x - i, y, datalist);
-                if (top == null)
+                if (carlooklist.Contains(1))
                 {
-                    carlooklist.Remove(1);
+                    Data? top = GetElement(x - i, y, datalist);
+                    if (top == null)
+                    {
+                        carlooklist.Remove(1);
+                    }
+                }
+                if (carlooklist.Contains(2))
+                {
+                    Data? right = GetElement(x, y + i, datalist);
+                    if (right == null)
+                    {
+                        carlooklist.Remove(2);
+                    }
+                }
+                if (carlooklist.Contains(3))
+                {
+                    Data? bottom = GetElement(x + i, y, datalist);
+                    if (bottom == null)
+                    {
+                        carlooklist.Remove(3);
+                    }
+                }
+                if (carlooklist.Contains(4))
+                {
+                    Data? left = GetElement(x, y - i, datalist);
+                    if (left == null)
+                    {
+                        carlooklist.Remove(4);
+                    }
                 }
             }
-            if (carlooklist.Contains(2))
+            if (carlooklist.Count == 0)
             {
-                Data? right = GetElement(x, y + i, datalist);
-                if (right == null)
+                if (x >= (datalist.GetLength(0) / 2))
                 {
-                    carlooklist.Remove(2);
+                    carlooklist.Add(1);
+                }
+                if (x < (datalist.GetLength(0) / 2))
+                {
+                    carlooklist.Add(3);
                 }
             }
-            if (carlooklist.Contains(3))
+        }
+        else
+        {
+            for (int i = 1; i < carlength; i++)
             {
-                Data? bottom = GetElement(x + i, y, datalist);
-                if (bottom == null)
+                if (carlooklist.Contains(1))
                 {
-                    carlooklist.Remove(3);
+                    Data? top = GetElement(x - i, y, datalist);
+                    if (top == null)
+                    {
+                        carlooklist.Remove(1);
+                    }
                 }
-            }
-            if (carlooklist.Contains(4))
-            {
-                Data? left = GetElement(x, y - i, datalist);
-                if (left == null)
+                if (carlooklist.Contains(2))
                 {
-                    carlooklist.Remove(4);
+                    Data? right = GetElement(x, y + i, datalist);
+                    if (right == null)
+                    {
+                        carlooklist.Remove(2);
+                    }
+                }
+                if (carlooklist.Contains(3))
+                {
+                    Data? bottom = GetElement(x + i, y, datalist);
+                    if (bottom == null)
+                    {
+                        carlooklist.Remove(3);
+                    }
+                }
+                if (carlooklist.Contains(4))
+                {
+                    Data? left = GetElement(x, y - i, datalist);
+                    if (left == null)
+                    {
+                        carlooklist.Remove(4);
+                    }
                 }
             }
         }
