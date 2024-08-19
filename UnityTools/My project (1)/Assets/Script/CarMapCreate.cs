@@ -6,8 +6,8 @@ using UnityEngine;
 #nullable enable
 class CarMapCreate
 {
-    public int height = 3;
-    public int width = 3;
+    public int height = 11;
+    public int width = 11;
     public List<int> carlengthlist = new List<int> { 1, 2, 3 };
     private List<Data> datalist1 = new List<Data>{};
     public List<int> carclass = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
@@ -16,18 +16,17 @@ class CarMapCreate
         CarMapCreate data = new CarMapCreate();
         Data[,] datalist = new Data[data.height, data.width];
         data.create_data_array(datalist);
-        data.SpiralTraverse(datalist);
-        datalist1.Add(datalist[0,0]);
+        data.SpiralTraverse(datalist,data);
         // data.console_data_ishead_array(datalist);
         // Console.WriteLine();
         // data.console_data_car_length_array(datalist);
         // Console.WriteLine();
         // data.console_data_car_lookat_array(datalist);
 
-        return datalist1;
+        return data.datalist1;
     }
     //螺旋遍历数组
-    public void SpiralTraverse(Data[,] datalist)
+    public void SpiralTraverse(Data[,] datalist,CarMapCreate data)
     {
         if (datalist == null || datalist.GetLength(0) == 0 || datalist.GetLength(1) == 0)
         {
@@ -40,18 +39,17 @@ class CarMapCreate
         int left = 0, right = cols - 1;
         while (top <= bottom && left <= right)
         {
-            Debug.Log(datalist1.Count);
             // Traverse from left to right along the top row
             for (int i = left; i <= right; i++)
             {
-                processdata(top, i, datalist);
+                processdata(top, i, datalist,data);
             }
             top++;
 
             // Traverse from top to bottom along the right column
             for (int i = top; i <= bottom; i++)
             {
-                processdata(i, right, datalist);
+                processdata(i, right, datalist,data);
             }
             right--;
 
@@ -60,7 +58,7 @@ class CarMapCreate
                 // Traverse from right to left along the bottom row
                 for (int i = right; i >= left; i--)
                 {
-                    processdata(bottom, i, datalist);
+                    processdata(bottom, i, datalist,data);
                 }
                 bottom--;
             }
@@ -70,14 +68,14 @@ class CarMapCreate
                 // Traverse from bottom to top along the left column
                 for (int i = bottom; i >= top; i--)
                 {
-                    processdata(i, left, datalist);
+                    processdata(i, left, datalist,data);
                 }
                 left++;
             }
         }
     }
     //
-    public void processdata(int x, int y, Data[,] datalist)
+    public void processdata(int x, int y, Data[,] datalist,CarMapCreate data)
     {
         if (datalist[x, y] == null)
         {
@@ -96,6 +94,8 @@ class CarMapCreate
                 //该点设为车头
                 datalist[x, y].ishead = true;
                 datalist[x, y].havedata = true;
+                datalist[x, y].x = x;
+                datalist[x, y].y = y;
                 //正式数据处理
                 System.Random random = new System.Random();
                 //该车的类型赋值
@@ -159,7 +159,7 @@ class CarMapCreate
                     }
                 }
             }
-            datalist1.Add(datalist[x, y]);
+            data.datalist1.Add(datalist[x, y]);
         }
     }
     public Data? GetElement(int x, int y, Data[,] datalist)

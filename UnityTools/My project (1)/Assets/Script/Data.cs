@@ -2,6 +2,9 @@ using System;
 
 public class Data
 {
+    //汽车在网格中的位置
+    public int x;
+    public int y;
     /**汽车长度,1-3*/
     public int car_length;
     /**汽车类型,目前是1-8*/

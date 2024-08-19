@@ -54,15 +54,15 @@ public class CreateCar : MonoBehaviour
             }
             float x = 0f;
             float z = 0f;
-            try
-            {
-                x = datalist[i - 1].car_pos.x + ((Gridlength * datalist[i].car_length) + 1.2f);
-                z = datalist[i - 1].car_pos.z + ((Gridlength * datalist[i].car_length) + 1.2f);
-            }
-            catch (IndexOutOfRangeException)
+            if(i==0)
             {
                 x = (Gridlength * datalist[i].car_length) + 1.2f;
                 z = (Gridlength * datalist[i].car_length) + 1.2f;
+            }
+            else
+            {
+                x = datalist[i - 1].car_pos.x + ((Gridlength * datalist[i].car_length) + 1.2f);
+                z = datalist[i - 1].car_pos.z + ((Gridlength * datalist[i].car_length) + 1.2f);
             }
             carlist.Add(car);
             switch (datalist[i].car_lookat)
