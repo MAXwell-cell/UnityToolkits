@@ -1,7 +1,6 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
-using System.Numerics;
+
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +21,7 @@ public class CreateCar : MonoBehaviour
         selfobject = gameObject;
         CarMapCreate carmap = new CarMapCreate();
         Data[,] mapdata = carmap.Main();
-        Gridlength = 1f;
+        Gridlength = 1.1f;
 
         int rows = mapdata.GetLength(0);
         int cols = mapdata.GetLength(1);
@@ -66,7 +65,7 @@ public class CreateCar : MonoBehaviour
         }
         foreach (GameObject car in carlist)
         {
-            car.transform.SetParent(otherobject.transform);
+            car.transform.SetParent(selfobject.transform);
         }
     }
     private void dataCreateCar(int i, int j, Data[,] datalist)
@@ -95,47 +94,55 @@ public class CreateCar : MonoBehaviour
             switch (datalist[i, j].car_lookat)
             {
                 case 1:
-                    car.transform.Rotate(0, 90, 0);
+                    // car.transform.Rotate(0, 90, 0);
+                    car.transform.Rotate(0, 135, 0);
                     if (datalist[i, j].car_length > 1)
                     {
-                        car.transform.position = new UnityEngine.Vector3(x - ((datalist[i, j].car_length - 1f) / 2), 0, z);
+                        // car.transform.position = new Vector3(x - ((datalist[i, j].car_length - 1f) / 2), 0, z);
+                        car.transform.position = take_Next_Point(new Vector3(x - ((datalist[i, j].car_length - 1f) / 2), 0, z), selfobject.transform.position);
                     }
                     else
                     {
-                        car.transform.position = new UnityEngine.Vector3(x, 0, z);
+                        car.transform.position = take_Next_Point(new Vector3(x, 0, z), selfobject.transform.position);
                     }
                     break;
                 case 2:
-                    car.transform.Rotate(0, 180, 0);
+                    // car.transform.Rotate(0, 180, 0);
+                    car.transform.Rotate(0, 225, 0);
                     if (datalist[i, j].car_length > 1)
                     {
-                        car.transform.position = new UnityEngine.Vector3(x, 0, z + ((datalist[i, j].car_length - 1f) / 2));
+                        // car.transform.position = new Vector3(x, 0, z + ((datalist[i, j].car_length - 1f) / 2));
+                        car.transform.position = take_Next_Point(new Vector3(x, 0, z + ((datalist[i, j].car_length - 1f) / 2)), selfobject.transform.position);
                     }
                     else
                     {
-                        car.transform.position = new UnityEngine.Vector3(x, 0, z);
+                        car.transform.position = take_Next_Point(new Vector3(x, 0, z), selfobject.transform.position);
                     }
                     break;
                 case 3:
-                    car.transform.Rotate(0, -90, 0);
+                    // car.transform.Rotate(0, -90, 0);
+                    car.transform.Rotate(0, -45, 0);
                     if (datalist[i, j].car_length > 1)
                     {
-                        car.transform.position = new UnityEngine.Vector3(x + ((datalist[i, j].car_length - 1f) / 2), 0, z);
+                        // car.transform.position = new Vector3(x + ((datalist[i, j].car_length - 1f) / 2), 0, z);
+                        car.transform.position = take_Next_Point(new Vector3(x + ((datalist[i, j].car_length - 1f) / 2), 0, z), selfobject.transform.position);
                     }
                     else
                     {
-                        car.transform.position = new UnityEngine.Vector3(x, 0, z);
+                        car.transform.position = take_Next_Point(new Vector3(x, 0, z), selfobject.transform.position);
                     }
                     break;
                 case 4:
-                    car.transform.Rotate(0, 0, 0);
+                    // car.transform.Rotate(0, 0, 0);
+                    car.transform.Rotate(0, 45, 0);
                     if (datalist[i, j].car_length > 1)
                     {
-                        car.transform.position = new UnityEngine.Vector3(x, 0, z - ((datalist[i, j].car_length - 1f) / 2));
+                        // car.transform.position = new Vector3(x, 0, z - ((datalist[i, j].car_length - 1f) / 2));
+                        car.transform.position = take_Next_Point(new Vector3(x, 0, z - ((datalist[i, j].car_length - 1f) / 2)), selfobject.transform.position);
                     }
                     else
                     {
-                        car.transform.position = new UnityEngine.Vector3(x, 0, z);
+                        car.transform.position = take_Next_Point(new Vector3(x, 0, z), selfobject.transform.position);
                     }
                     break;
                 default:
@@ -143,5 +150,15 @@ public class CreateCar : MonoBehaviour
                     break;
             }
         }
+    }
+    private Vector3 take_Next_Point(Vector3 _start_point, Vector3 _circle_center)
+    {
+        float angle = 45f;
+        Vector3 direction = _start_point - _circle_center;
+        Vector3 normal = new Vector3(0, 1, 0).normalized;
+        Quaternion rotation = Quaternion.AngleAxis(angle, normal);
+        Vector3 _target_direction = rotation * direction;
+        Vector3 _target_point = _circle_center + _target_direction;
+        return _target_point;
     }
 }

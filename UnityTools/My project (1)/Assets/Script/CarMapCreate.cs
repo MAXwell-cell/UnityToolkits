@@ -7,8 +7,7 @@ using UnityEngine;
 #nullable enable
 class CarMapCreate
 {
-    public int height = 11;
-    public int width = 11;
+    public int Grid = 12;
     public List<int> carlengthlist = new List<int> { 1, 2, 3 };
     private List<Data> datalist1 = new List<Data> { };
     public List<int> carclass = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
@@ -22,7 +21,7 @@ class CarMapCreate
 
 
         CarMapCreate data = new CarMapCreate();
-        Data[,] datalist = new Data[data.height, data.width];
+        Data[,] datalist = new Data[data.Grid, data.Grid];
         data.create_data_array(datalist);
         data.SpiralTraverse(datalist, data);
         // data.console_data_ishead_array(datalist);
@@ -108,7 +107,7 @@ class CarMapCreate
             }
             else if (!datalist[x, y].havedata)
             {
-                List<int> carlength = carlengthlist;
+                List<int> carlength = new List<int>(carlengthlist);
                 //该点设为车头
                 datalist[x, y].ishead = true;
                 datalist[x, y].havedata = true;
