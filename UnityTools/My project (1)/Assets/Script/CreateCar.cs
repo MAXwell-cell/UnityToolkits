@@ -75,13 +75,13 @@ public class CreateCar : MonoBehaviour
             GameObject car = null;
             switch (datalist[i, j].car_length)
             {
-                case 1:
+                case 5:
                     car = Instantiate(car1);
                     break;
-                case 2:
+                case 6:
                     car = Instantiate(car2);
                     break;
-                case 3:
+                case 7:
                     car = Instantiate(car3);
                     break;
                 default:
@@ -94,55 +94,59 @@ public class CreateCar : MonoBehaviour
             switch (datalist[i, j].car_lookat)
             {
                 case 1:
-                    // car.transform.Rotate(0, 90, 0);
-                    car.transform.Rotate(0, 135, 0);
+                    car.transform.Rotate(0, 90, 0);
+                    // car.transform.Rotate(0, 135, 0);
                     if (datalist[i, j].car_length > 1)
                     {
-                        // car.transform.position = new Vector3(x - ((datalist[i, j].car_length - 1f) / 2), 0, z);
-                        car.transform.position = take_Next_Point(new Vector3(x - ((datalist[i, j].car_length - 1f) / 2), 0, z), selfobject.transform.position);
+                        car.transform.position = new Vector3(x - ((datalist[i, j].car_length * Gridlength) / 2), 0, z);
+                        // car.transform.position = take_Next_Point(new Vector3(x - ((datalist[i, j].car_length - 1f) / 2), 0, z), selfobject.transform.position);
                     }
                     else
                     {
-                        car.transform.position = take_Next_Point(new Vector3(x, 0, z), selfobject.transform.position);
+                        car.transform.position = new Vector3(x, 0, z);
+                        // car.transform.position = take_Next_Point(new Vector3(x, 0, z), selfobject.transform.position);
                     }
                     break;
                 case 2:
-                    // car.transform.Rotate(0, 180, 0);
-                    car.transform.Rotate(0, 225, 0);
+                    car.transform.Rotate(0, 180, 0);
+                    // car.transform.Rotate(0, 225, 0);
                     if (datalist[i, j].car_length > 1)
                     {
-                        // car.transform.position = new Vector3(x, 0, z + ((datalist[i, j].car_length - 1f) / 2));
-                        car.transform.position = take_Next_Point(new Vector3(x, 0, z + ((datalist[i, j].car_length - 1f) / 2)), selfobject.transform.position);
+                        car.transform.position = new Vector3(x, 0, z + ((datalist[i, j].car_length * Gridlength) / 2));
+                        // car.transform.position = take_Next_Point(new Vector3(x, 0, z + ((datalist[i, j].car_length - 1f) / 2)), selfobject.transform.position);
                     }
                     else
                     {
-                        car.transform.position = take_Next_Point(new Vector3(x, 0, z), selfobject.transform.position);
+                        car.transform.position = new Vector3(x, 0, z);
+                        // car.transform.position = take_Next_Point(new Vector3(x, 0, z), selfobject.transform.position);
                     }
                     break;
                 case 3:
-                    // car.transform.Rotate(0, -90, 0);
-                    car.transform.Rotate(0, -45, 0);
+                    car.transform.Rotate(0, -90, 0);
+                    // car.transform.Rotate(0, -45, 0);
                     if (datalist[i, j].car_length > 1)
                     {
-                        // car.transform.position = new Vector3(x + ((datalist[i, j].car_length - 1f) / 2), 0, z);
-                        car.transform.position = take_Next_Point(new Vector3(x + ((datalist[i, j].car_length - 1f) / 2), 0, z), selfobject.transform.position);
+                        car.transform.position = new Vector3(x + ((datalist[i, j].car_length * Gridlength) / 2), 0, z);
+                        // car.transform.position = take_Next_Point(new Vector3(x + ((datalist[i, j].car_length - 1f) / 2), 0, z), selfobject.transform.position);
                     }
                     else
                     {
-                        car.transform.position = take_Next_Point(new Vector3(x, 0, z), selfobject.transform.position);
+                        car.transform.position = new Vector3(x, 0, z);
+                        // car.transform.position = take_Next_Point(new Vector3(x, 0, z), selfobject.transform.position);
                     }
                     break;
                 case 4:
-                    // car.transform.Rotate(0, 0, 0);
-                    car.transform.Rotate(0, 45, 0);
+                    car.transform.Rotate(0, 0, 0);
+                    // car.transform.Rotate(0, 45, 0);
                     if (datalist[i, j].car_length > 1)
                     {
-                        // car.transform.position = new Vector3(x, 0, z - ((datalist[i, j].car_length - 1f) / 2));
-                        car.transform.position = take_Next_Point(new Vector3(x, 0, z - ((datalist[i, j].car_length - 1f) / 2)), selfobject.transform.position);
+                        car.transform.position = new Vector3(x, 0, z - ((datalist[i, j].car_length * Gridlength) / 2));
+                        // car.transform.position = take_Next_Point(new Vector3(x, 0, z - ((datalist[i, j].car_length - 1f) / 2)), selfobject.transform.position);
                     }
                     else
                     {
-                        car.transform.position = take_Next_Point(new Vector3(x, 0, z), selfobject.transform.position);
+                        car.transform.position = new Vector3(x, 0, z);
+                        // car.transform.position = take_Next_Point(new Vector3(x, 0, z), selfobject.transform.position);
                     }
                     break;
                 default:
