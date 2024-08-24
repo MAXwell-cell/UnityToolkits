@@ -67,6 +67,8 @@
     <Compile Include="Assets\Script\Data.cs" />
     <Compile Include="Assets\Script\CreateCar.cs" />
     <Compile Include="Assets\Script\CarMapCreate.cs" />
+    <Compile Include="Assets\Script\All_The_Way\PlayerCar.cs" />
+    <Compile Include="Assets\Script\All_The_Way\RoadBlock.cs" />
     <Compile Include="Assets\Script\object_Forward.cs" />
   </ItemGroup>
   <ItemGroup>
