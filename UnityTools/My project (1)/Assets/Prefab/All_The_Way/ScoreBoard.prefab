@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 3794576053987468645}
   - component: {fileID: 5265405322625929671}
   - component: {fileID: 2419179734346888508}
-  - component: {fileID: 5664372569225806082}
   - component: {fileID: 6037188148361132875}
+  - component: {fileID: 5122431756896933524}
   m_Layer: 0
-  m_Name: RoadBlock
+  m_Name: ScoreBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,18 +107,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5664372569225806082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5243692787509837678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d4ad4fea7a913e42ab9447f3797bd64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &6037188148361132875
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -146,3 +134,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5122431756896933524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5243692787509837678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 650fa9fa1c09a504aa85fd847a71ebb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scorenum: 0
+  operation: 

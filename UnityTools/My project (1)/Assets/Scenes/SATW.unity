@@ -131,21 +131,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2419179734346888508, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122431756896933524, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
+      propertyPath: scorenum
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122431756896933524, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
+      propertyPath: operation
+      value: x
+      objectReference: {fileID: 0}
     - target: {fileID: 5243692787509837678, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
       propertyPath: m_Name
-      value: RoadBlock (1)
+      value: ScoreBoard
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037188148361132875, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6143726080855918062, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5
+      value: -0.527
       objectReference: {fileID: 0}
     - target: {fileID: 6143726080855918062, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 6143726080855918062, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9
+      value: 23.6
       objectReference: {fileID: 0}
     - target: {fileID: 6143726080855918062, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -370,7 +386,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: X999
+  m_text: X0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -549,6 +565,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1253290776
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1253290778}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1253290778
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253290776}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 1.1, z: 9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1470564215
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +698,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1470564215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9911e63eb940db04881118f1df2a9659, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cefa9c4f686b3f4baccd1fb1b4d051e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2133730207
@@ -824,17 +871,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2419179734346888508, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122431756896933524, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
+      propertyPath: scorenum
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122431756896933524, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
+      propertyPath: operation
+      value: +
+      objectReference: {fileID: 0}
     - target: {fileID: 5243692787509837678, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
       propertyPath: m_Name
-      value: RoadBlock
+      value: ScoreBoard
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037188148361132875, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6143726080855918062, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 0.517
       objectReference: {fileID: 0}
     - target: {fileID: 6143726080855918062, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 6143726080855918062, guid: 65c4023ac8884ee478c594007d40c3b0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -889,6 +952,10 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4283477338196575822, guid: c4e317937b5ab434c8cd80b671d7b186, type: 3}
+      propertyPath: scoreBoard
+      value: 
+      objectReference: {fileID: 1014373989}
     - target: {fileID: 5552682575490039837, guid: c4e317937b5ab434c8cd80b671d7b186, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -950,3 +1017,4 @@ SceneRoots:
   - {fileID: 193372051}
   - {fileID: 1099919316}
   - {fileID: 2144281397}
+  - {fileID: 1253290778}

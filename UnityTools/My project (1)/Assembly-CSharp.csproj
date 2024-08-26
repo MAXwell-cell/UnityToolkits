@@ -66,10 +66,13 @@
   <ItemGroup>
     <Compile Include="Assets\Script\Data.cs" />
     <Compile Include="Assets\Script\CreateCar.cs" />
+    <Compile Include="Assets\Script\All_The_Way\CameraMove.cs" />
     <Compile Include="Assets\Script\CarMapCreate.cs" />
     <Compile Include="Assets\Script\All_The_Way\PlayerCar.cs" />
     <Compile Include="Assets\Script\All_The_Way\RoadBlock.cs" />
+    <Compile Include="Assets\Script\All_The_Way\ScoreBoard.cs" />
     <Compile Include="Assets\Script\object_Forward.cs" />
+    <Compile Include="Assets\Script\All_The_Way\ATWDataGameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
