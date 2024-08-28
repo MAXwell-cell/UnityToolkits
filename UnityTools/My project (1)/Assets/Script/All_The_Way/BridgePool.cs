@@ -24,11 +24,13 @@ public class BridgePool : MonoBehaviour
         Boolean _havebridge = Bridgepool.TryPop(out GameObject _result);
         if (_havebridge)
         {
+            _result.SetActive(true);
             return _result;
         }
         else
         {
             GameObject _obj = Instantiate(BridgePrefab);
+            _obj.SetActive(true);
             return _obj;
         }
     }

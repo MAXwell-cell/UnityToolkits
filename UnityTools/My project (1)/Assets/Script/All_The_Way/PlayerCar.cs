@@ -14,7 +14,7 @@ public class PlayerCar : MonoBehaviour
     /// 桥的预制体
     /// </summary>
     public GameObject Bridge;
-    [HideInInspector]public List<GameObject> Bridges = new List<GameObject> { };
+    [HideInInspector] public List<GameObject> Bridges = new List<GameObject> { };
     private Vector2 startTouchposition;
     private bool isDragging = false;
     private float _time = 0f;
@@ -125,6 +125,9 @@ public class PlayerCar : MonoBehaviour
             for (int i = 0; i < Math.Abs(count); i++)
             {
                 GameObject bridge = bridgePool.GetBridge();
+                bridge.transform.parent = gameObject.transform;
+                bridge.transform.rotation = Quaternion.identity;
+                bridge.transform.position = new Vector3(0, (i + bridgescount) * 0.4f + 1f, gameObject.transform.position.z);
                 Bridges.Add(bridge);
             }
         }
