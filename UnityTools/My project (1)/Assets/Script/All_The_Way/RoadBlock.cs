@@ -9,9 +9,10 @@ public class RoadBlock : MonoBehaviour
 {
     public int scorenum;
     public string operation;
+    private bool isTriggered = false;
     public void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.name == "Car")
+        if (collision.gameObject.name == "Car"&&!isTriggered)
         {
             DoTriggerEnter();
         }
@@ -37,10 +38,18 @@ public class RoadBlock : MonoBehaviour
                 Debug.Log("分数计算器出错");
                 break;
         }
-        if(result == 0){
+        if (result == 0)
+        {
             Debug.Log("result未赋值");
         }
         return result;
     }
-    public virtual void DoTriggerEnter() { }
+    public virtual void DoTriggerEnter()
+    {
+        isTriggered = true;
+        ATWDataGameManager awtGM = ATWDataGameManager.Instance;
+        awtGM.BoardGrade = calculator(awtGM.boardGrade, scorenum, operation);
+        Debug.Log("当前分数为" + awtGM.boardGrade);
+        Destroy(gameObject);
+    }
 }
