@@ -7,5 +7,6 @@ public class ScoreBoard : RoadBlock
     public override void DoTriggerEnter()
     {
         base.DoTriggerEnter();
+        Destroy(gameObject);
     }
 }

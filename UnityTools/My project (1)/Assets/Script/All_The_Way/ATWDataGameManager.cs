@@ -18,13 +18,21 @@ public class ATWDataGameManager
         }
     }
     public int boardGrade = 0;
-    private ATWDataGameManager() {}
+    private ATWDataGameManager() { }
     public event Action<int> OnboardGradeChanged;
-    public int BoardGrade{
-        get{return boardGrade;}
-        set{
-            if(boardGrade != value){
+    public int BoardGrade
+    {
+        get { return boardGrade; }
+        set
+        {
+            if (boardGrade != value && value >= 0)
+            {
                 boardGrade = value;
+                OnboardGradeChanged?.Invoke(boardGrade);
+            }
+            else if (value < 0)
+            {
+                boardGrade = 0;
                 OnboardGradeChanged?.Invoke(boardGrade);
             }
         }

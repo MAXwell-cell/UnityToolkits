@@ -3,35 +3,60 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using UnityEngine.UIElements;
 
 public class Bridging : RoadBlock
 {
     public int bridgelength = 0;
-    //发送铺桥事件 携带本次铺桥所用板子数量
-    public event Action<int> isbridging;
+    /// <summary>
+    /// 记录当前桥铺到了第几个
+    /// </summary>
+    private int bridgei = 0;
+    public GameObject carObj;
+
     public void Start()
     {
         scorenum = 1;
         operation = "-";
-    }
-    public override void DoTriggerEnter()
-    {
-        StartCoroutine(DropBridge());
-    }
-    IEnumerator DropBridge()
-    {
-        if (bridgelength < 0)
+        carObj = GameObject.Find("Car");
+        if (carObj == null)
         {
-            Debug.LogWarning("bridgelength 初始值为负数，无法继续执行 DropBridge。");
+            Debug.Log("Car不存在!");
+        }
+    }
+    public override void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.name == "Car" && !isTriggered)
+        {
+            isTriggered = true;
+            carObj.GetComponent<PlayerCar>().dropingBridging = true;
+            StartCoroutine(DropBridge(collision.gameObject.transform.position.x));
+        }
+    }
+    IEnumerator DropBridge(float Positionx)
+    {
+        if (bridgelength <= 0)
+        {
+            Debug.LogWarning("bridgelength 初始值为负数或0,无法继续执行 DropBridge。");
+            carObj.GetComponent<PlayerCar>().dropingBridging = false;
             yield break;
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
 
         try
         {
             ATWDataGameManager awtGM = ATWDataGameManager.Instance;
             awtGM.BoardGrade = calculator(awtGM.boardGrade, scorenum, operation);
-            Debug.Log("当前分数为" + awtGM.boardGrade);
+            //如果这次放桥动作结束后车上的桥不足则中断递归
+            if (awtGM.boardGrade <= 0)
+            {
+                carObj.GetComponent<PlayerCar>().dropingBridging = false;
+                yield break;
+            }
+            //这里将对象池中的对象拿来铺桥(记得回收)
+            GameObject bridgeobj = carObj.GetComponent<PlayerCar>().bridgePool.GetBridge();
+            bridgeobj.GetComponent<BoxCollider>().enabled = true;
+            bridgeobj.transform.position = new Vector3(Positionx, 0.3f, bridgei * 1f + gameObject.transform.position.z + 6f);
         }
         catch (Exception ex)
         {
@@ -41,7 +66,13 @@ public class Bridging : RoadBlock
         if (bridgelength > 1)
         {
             bridgelength--;
-            yield return StartCoroutine(DropBridge());
+            bridgei++;
+            yield return StartCoroutine(DropBridge(Positionx));
+        }
+        else
+        {
+            //这里告诉汽车停止铺桥 可以拖动屏幕移动汽车了
+            carObj.GetComponent<PlayerCar>().dropingBridging = false;
         }
     }
 }

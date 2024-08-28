@@ -9,8 +9,8 @@ public class RoadBlock : MonoBehaviour
 {
     public int scorenum;
     public string operation;
-    private bool isTriggered = false;
-    public void OnTriggerEnter(Collider collision)
+    public bool isTriggered = false;
+    public virtual void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.name == "Car"&&!isTriggered)
         {
@@ -50,6 +50,5 @@ public class RoadBlock : MonoBehaviour
         ATWDataGameManager awtGM = ATWDataGameManager.Instance;
         awtGM.BoardGrade = calculator(awtGM.boardGrade, scorenum, operation);
         Debug.Log("当前分数为" + awtGM.boardGrade);
-        Destroy(gameObject);
     }
 }

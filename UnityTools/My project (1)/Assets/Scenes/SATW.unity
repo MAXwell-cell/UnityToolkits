@@ -510,7 +510,7 @@ Transform:
   m_GameObject: {fileID: 625651612}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 49.5}
+  m_LocalPosition: {x: 0, y: 1, z: 44.5}
   m_LocalScale: {x: 7.8482804, y: 0.600201, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -530,7 +530,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scorenum: 0
   operation: 
+  isTriggered: 0
   bridgelength: 10
+  carObj: {fileID: 0}
 --- !u!1 &1014373987
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +778,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1253290778}
+  - component: {fileID: 1253290779}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -798,6 +801,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1253290779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253290776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6961d40b4c265e45afffe206ff5734b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BridgePrefab: {fileID: 1502928339701417710, guid: 9657247b7c8038a4ba484741087e973a, type: 3}
 --- !u!1 &1470564215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,8 +1300,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3123414301588040291, guid: c4e317937b5ab434c8cd80b671d7b186, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 3123414301588040291, guid: c4e317937b5ab434c8cd80b671d7b186, type: 3}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3123414301588040291, guid: c4e317937b5ab434c8cd80b671d7b186, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4283477338196575822, guid: c4e317937b5ab434c8cd80b671d7b186, type: 3}
       propertyPath: Bridge
