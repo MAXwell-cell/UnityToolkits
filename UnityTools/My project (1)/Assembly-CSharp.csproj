@@ -73,6 +73,7 @@
     <Compile Include="Assets\Script\All_The_Way\PlayerCar.cs" />
     <Compile Include="Assets\Script\All_The_Way\RoadBlock.cs" />
     <Compile Include="Assets\Script\All_The_Way\ScoreBoard.cs" />
+    <Compile Include="Assets\Script\All_The_Way\ABMGR.cs" />
     <Compile Include="Assets\Script\object_Forward.cs" />
     <Compile Include="Assets\Script\All_The_Way\ATWDataGameManager.cs" />
   </ItemGroup>
