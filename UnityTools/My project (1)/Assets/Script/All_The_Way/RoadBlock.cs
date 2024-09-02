@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
+using System;
 using UnityEngine;
+
 
 public class RoadBlock : MonoBehaviour
 {
@@ -12,7 +9,7 @@ public class RoadBlock : MonoBehaviour
     public bool isTriggered = false;
     public virtual void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.name == "Car"&&!isTriggered)
+        if (collision.gameObject.name == "Car" && !isTriggered)
         {
             DoTriggerEnter();
         }

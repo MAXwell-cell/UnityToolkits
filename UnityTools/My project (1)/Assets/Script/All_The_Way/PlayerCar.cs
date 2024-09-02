@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using OpenCover.Framework.Model;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,6 +8,7 @@ public class PlayerCar : MonoBehaviour
 {
     private float speed = 5;
     private Vector3 distance;
+    //得分
     public TextMeshProUGUI scoreBoard;
     /// <summary>
     /// 桥的预制体
@@ -20,14 +20,16 @@ public class PlayerCar : MonoBehaviour
     /// <summary>
     /// 当前是否正在铺桥
     /// </summary>
-    public bool dropingBridging = false;
+    [HideInInspector]public bool dropingBridging = false;
     private float _time = 0f;
     /// <summary>
     /// 桥的对象池
     /// </summary>
     [HideInInspector] public BridgePool bridgePool;
+    private Camera maincamera;
     void Start()
     {
+        maincamera = Camera.main;
         distance = new Vector3(0, 0, 1);
         if (GetComponent<Rigidbody>())
         {
@@ -66,10 +68,12 @@ public class PlayerCar : MonoBehaviour
                     if (direction.x > 0 && gameObject.transform.position.x < 3)
                     {
                         gameObject.transform.Translate(new Vector3(0.5f * Time.deltaTime * speed, 0, 0), Space.World);
+                        maincamera.transform.Rotate(new Vector3(0,0,0.1f));
                     }
                     if (direction.x < 0 && gameObject.transform.position.x > -3)
                     {
                         gameObject.transform.Translate(new Vector3(-0.5f * Time.deltaTime * speed, 0, 0), Space.World);
+                        maincamera.transform.Rotate(new Vector3(0,0,-0.1f));
                     }
                     //更新初始位置为当前位置
                     startTouchposition = currentposition;

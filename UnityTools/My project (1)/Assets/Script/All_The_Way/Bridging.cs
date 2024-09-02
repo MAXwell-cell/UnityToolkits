@@ -13,6 +13,8 @@ public class Bridging : RoadBlock
     /// </summary>
     private int bridgei = 0;
     public GameObject carObj;
+    //在多远的距离开始铺桥
+    private float bridgedistance = 2f;
 
     public void Start()
     {
@@ -56,7 +58,7 @@ public class Bridging : RoadBlock
             //这里将对象池中的对象拿来铺桥(记得回收)
             GameObject bridgeobj = carObj.GetComponent<PlayerCar>().bridgePool.GetBridge();
             bridgeobj.GetComponent<BoxCollider>().enabled = true;
-            bridgeobj.transform.position = new Vector3(Positionx, 0.3f, bridgei * 1f + gameObject.transform.position.z + 6f);
+            bridgeobj.transform.position = new Vector3(Positionx, 0.3f, bridgei * 1f + gameObject.transform.position.z + bridgedistance);
         }
         catch (Exception ex)
         {
