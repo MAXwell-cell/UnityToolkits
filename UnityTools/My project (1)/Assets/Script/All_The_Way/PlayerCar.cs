@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerCar : MonoBehaviour
 {
@@ -20,15 +21,28 @@ public class PlayerCar : MonoBehaviour
     /// <summary>
     /// 当前是否正在铺桥
     /// </summary>
-    [HideInInspector]public bool dropingBridging = false;
+    [HideInInspector] public bool dropingBridging = false;
     private float _time = 0f;
     /// <summary>
     /// 桥的对象池
     /// </summary>
     [HideInInspector] public BridgePool bridgePool;
     private Camera maincamera;
+    /// <summary>
+    /// 
+    /// </summary>
+    [HideInInspector] public static bool carCanMove = false;
+    [HideInInspector] public GameObject blockInput;
     void Start()
     {
+        try
+        {
+            blockInput = GameObject.Find("BlockInput");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("没找到blockInput" + ex.Message);
+        }
         maincamera = Camera.main;
         distance = new Vector3(0, 0, 1);
         if (GetComponent<Rigidbody>())
@@ -46,77 +60,100 @@ public class PlayerCar : MonoBehaviour
 
     void Update()
     {
-        gameObject.transform.Translate(distance * Time.deltaTime * speed, Space.World);
-        //如果没在放桥那么可以触摸操作
-        if (!dropingBridging)
+        if (!carCanMove)
         {
-            //这之后的updata都是触摸操作
+            //如果car不能移动时 触摸屏幕使之可以移动
             if (Input.GetMouseButtonDown(0))
             {
-                //记录鼠标按下时的位置
-                startTouchposition = Input.mousePosition;
-                isDragging = true;
-            }
-            if (Input.GetMouseButton(0) && isDragging)
-            {
-                _time += Time.deltaTime;
-                if (_time > 0.01f)
+                if (EventSystem.current.IsPointerOverGameObject())
                 {
-                    //获取鼠标当前位置
-                    Vector2 currentposition = Input.mousePosition;
-                    Vector2 direction = currentposition - startTouchposition;
-                    if (direction.x > 0 && gameObject.transform.position.x < 3)
-                    {
-                        gameObject.transform.Translate(new Vector3(0.5f * Time.deltaTime * speed, 0, 0), Space.World);
-                        maincamera.transform.Rotate(new Vector3(0,0,0.1f));
-                    }
-                    if (direction.x < 0 && gameObject.transform.position.x > -3)
-                    {
-                        gameObject.transform.Translate(new Vector3(-0.5f * Time.deltaTime * speed, 0, 0), Space.World);
-                        maincamera.transform.Rotate(new Vector3(0,0,-0.1f));
-                    }
-                    //更新初始位置为当前位置
-                    startTouchposition = currentposition;
-                    _time -= 0.01f;
+                    return;
                 }
+                carCanMove = true;
             }
-            if (Input.GetMouseButtonUp(0))
+            if (Input.touchCount == 1)
             {
-                isDragging = false;
-            }
-
-
-            if (Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0);
-                if (touch.phase == TouchPhase.Began)
+                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
                 {
+                    return;
+                }
+                carCanMove = true;
+            }
+        }
+        if (carCanMove)
+        {
+            gameObject.transform.Translate(distance * Time.deltaTime * speed, Space.World);
+            //如果没在放桥那么可以触摸操作
+            if (!dropingBridging)
+            {
+                //这之后的updata都是触摸操作
+                if (Input.GetMouseButtonDown(0))
+                {
+                    //记录鼠标按下时的位置
                     startTouchposition = Input.mousePosition;
                     isDragging = true;
                 }
-                if (touch.phase == TouchPhase.Moved && isDragging)
+                if (Input.GetMouseButton(0) && isDragging)
                 {
                     _time += Time.deltaTime;
                     if (_time > 0.01f)
                     {
-                        Vector2 currentposition = touch.position;
+                        //获取鼠标当前位置
+                        Vector2 currentposition = Input.mousePosition;
                         Vector2 direction = currentposition - startTouchposition;
                         if (direction.x > 0 && gameObject.transform.position.x < 3)
                         {
-                            gameObject.transform.Translate(new Vector3(1f, 0, 0), Space.World);
+                            gameObject.transform.Translate(new Vector3(0.7f * Time.deltaTime * speed, 0, 0), Space.World);
+                            maincamera.transform.Rotate(new Vector3(0, 0, 0.1f));
                         }
                         if (direction.x < 0 && gameObject.transform.position.x > -3)
                         {
-                            gameObject.transform.Translate(new Vector3(-1f, 0, 0), Space.World);
+                            gameObject.transform.Translate(new Vector3(-0.7f * Time.deltaTime * speed, 0, 0), Space.World);
+                            maincamera.transform.Rotate(new Vector3(0, 0, -0.1f));
                         }
+                        //更新初始位置为当前位置
                         startTouchposition = currentposition;
-                        Debug.Log("有手指触摸移动操作");
                         _time -= 0.01f;
                     }
                 }
-                if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                if (Input.GetMouseButtonUp(0))
                 {
                     isDragging = false;
+                }
+
+
+                if (Input.touchCount > 0)
+                {
+                    Touch touch = Input.GetTouch(0);
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        startTouchposition = Input.mousePosition;
+                        isDragging = true;
+                    }
+                    if (touch.phase == TouchPhase.Moved && isDragging)
+                    {
+                        _time += Time.deltaTime;
+                        if (_time > 0.01f)
+                        {
+                            Vector2 currentposition = touch.position;
+                            Vector2 direction = currentposition - startTouchposition;
+                            if (direction.x > 0 && gameObject.transform.position.x < 3)
+                            {
+                                gameObject.transform.Translate(new Vector3(1f, 0, 0), Space.World);
+                            }
+                            if (direction.x < 0 && gameObject.transform.position.x > -3)
+                            {
+                                gameObject.transform.Translate(new Vector3(-1f, 0, 0), Space.World);
+                            }
+                            startTouchposition = currentposition;
+                            Debug.Log("有手指触摸移动操作");
+                            _time -= 0.01f;
+                        }
+                    }
+                    if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                    {
+                        isDragging = false;
+                    }
                 }
             }
         }
@@ -136,7 +173,7 @@ public class PlayerCar : MonoBehaviour
                 GameObject bridge = bridgePool.GetBridge();
                 bridge.transform.parent = gameObject.transform;
                 bridge.transform.rotation = Quaternion.identity;
-                bridge.transform.position = new Vector3(0, (i + bridgescount) * 0.4f + 1f, gameObject.transform.position.z);
+                bridge.transform.position = new Vector3(gameObject.transform.position.x, (i + bridgescount) * 0.14f + 1.5f, gameObject.transform.position.z - 0.7f);
                 Bridges.Add(bridge);
             }
         }
@@ -148,5 +185,15 @@ public class PlayerCar : MonoBehaviour
                 Bridges.RemoveAt(Bridges.Count - 1);
             }
         }
+    }
+    public void startGame()
+    {
+        blockInput?.SetActive(false);
+        carCanMove = true;
+    }
+    public void restartGame()
+    {
+        blockInput?.SetActive(true);
+        carCanMove = false;
     }
 }

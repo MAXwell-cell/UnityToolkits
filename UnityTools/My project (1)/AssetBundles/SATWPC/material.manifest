@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 1344903807
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7b8c2bcec30f9c8a8b510d5ec9c89d20
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b30fce1a9ad74efb72be6c308c56e365
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 7b8c2bcec30f9c8a8b510d5ec9c89d20
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Prefab/All_The_Way/car3-2.mat
+- Assets/Prefab/All_The_Way/car3-1.mat
+Dependencies: []

@@ -6,7 +6,7 @@ public class RoadBlock : MonoBehaviour
 {
     public int scorenum;
     public string operation;
-    public bool isTriggered = false;
+    [HideInInspector]public bool isTriggered = false;
     public virtual void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.name == "Car" && !isTriggered)

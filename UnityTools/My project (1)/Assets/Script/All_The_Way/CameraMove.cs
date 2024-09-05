@@ -17,6 +17,9 @@ public class CameraMove : MonoBehaviour
     }
     void Update()
     {
-        gameObject.transform.Translate(distance * Time.deltaTime * speed, Space.World);
+        if (PlayerCar.carCanMove)
+        {
+            gameObject.transform.Translate(distance * Time.deltaTime * speed, Space.World);
+        }
     }
 }
