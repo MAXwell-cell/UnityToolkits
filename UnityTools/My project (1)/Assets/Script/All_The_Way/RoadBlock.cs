@@ -46,6 +46,5 @@ public class RoadBlock : MonoBehaviour
         isTriggered = true;
         ATWDataGameManager awtGM = ATWDataGameManager.Instance;
         awtGM.BoardGrade = calculator(awtGM.boardGrade, scorenum, operation);
-        Debug.Log("当前分数为" + awtGM.boardGrade);
     }
 }

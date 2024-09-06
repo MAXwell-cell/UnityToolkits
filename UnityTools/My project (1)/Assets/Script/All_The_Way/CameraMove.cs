@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    private float speed = 5;
+    private float speed = 6;
     private Vector3 distance;
     void Start()
     {

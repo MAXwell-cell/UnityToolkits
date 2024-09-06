@@ -14,7 +14,7 @@ public class Bridging : RoadBlock
     private int bridgei = 0;
     private GameObject carObj;
     //在多远的距离开始铺桥
-    private float bridgedistance = 0.6f;
+    private float bridgedistance = 0.7f;
 
     public void Start()
     {

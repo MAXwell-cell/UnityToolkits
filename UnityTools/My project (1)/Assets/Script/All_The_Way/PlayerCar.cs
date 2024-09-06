@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class PlayerCar : MonoBehaviour
 {
-    private float speed = 5;
+    private float speed = 6;
     private Vector3 distance;
     //得分
     public TextMeshProUGUI scoreBoard;
@@ -29,7 +29,7 @@ public class PlayerCar : MonoBehaviour
     [HideInInspector] public BridgePool bridgePool;
     private Camera maincamera;
     /// <summary>
-    /// 
+    /// 代表汽车可以移动
     /// </summary>
     [HideInInspector] public static bool carCanMove = false;
     [HideInInspector] public GameObject blockInput;
@@ -103,13 +103,13 @@ public class PlayerCar : MonoBehaviour
                         Vector2 direction = currentposition - startTouchposition;
                         if (direction.x > 0 && gameObject.transform.position.x < 3)
                         {
-                            gameObject.transform.Translate(new Vector3(0.7f * Time.deltaTime * speed, 0, 0), Space.World);
-                            maincamera.transform.Rotate(new Vector3(0, 0, 0.1f));
+                            gameObject.transform.Translate(new Vector3(1f * Time.deltaTime * speed, 0, 0), Space.World);
+                            maincamera.transform.Rotate(new Vector3(0, 0, 0f));
                         }
                         if (direction.x < 0 && gameObject.transform.position.x > -3)
                         {
-                            gameObject.transform.Translate(new Vector3(-0.7f * Time.deltaTime * speed, 0, 0), Space.World);
-                            maincamera.transform.Rotate(new Vector3(0, 0, -0.1f));
+                            gameObject.transform.Translate(new Vector3(-1f * Time.deltaTime * speed, 0, 0), Space.World);
+                            maincamera.transform.Rotate(new Vector3(0, 0, 0f));
                         }
                         //更新初始位置为当前位置
                         startTouchposition = currentposition;
@@ -191,6 +191,7 @@ public class PlayerCar : MonoBehaviour
         blockInput?.SetActive(false);
         carCanMove = true;
     }
+    
     public void restartGame()
     {
         blockInput?.SetActive(true);
