@@ -9,7 +9,33 @@ public class ABMGR : MonoBehaviour
     //让外部更方便的进行资源加载
     //AB包不能重复加载,重复加载会报错
     //用字典存储加载过的AB包
-    private Dictionary<string,AssetBundle> abDic = new Dictionary<string, AssetBundle>();
+    private AssetBundle ABMain = null;
+    //依赖包使用的配置文件
+    private Dictionary<string, AssetBundle> abDic = new Dictionary<string, AssetBundle>();
+    /// <summary>
+    /// AB包存放路径 方便修改
+    /// </summary>
+    private AssetBundleManifest mainfest = null;
+    private string pathUrl
+    {
+        get
+        {
+            return Application.streamingAssetsPath + "/";
+        }
+    }
+    private string mainName
+    {
+        get
+        {
+#if UNITY_EDITOR
+            return "PC";
+#elif UNITY_WEBGL
+            return "Webgl";
+#else
+            return "PC";
+#endif
+        }
+    }
     public void LoadRes(string abname, string resName)
     {
         //加载AB包
@@ -19,9 +45,20 @@ public class ABMGR : MonoBehaviour
         //加载依赖包
         //加载目标包
         //
-        AssetBundle AB = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/" + abname);
+        
+        //主包和配置文件只加载一次
+        if (ABMain == null)
+        {
+            ABMain = AssetBundle.LoadFromFile(pathUrl + mainName);
+            mainfest = ABMain.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
+        }
+        AssetBundle AB = AssetBundle.LoadFromFile(pathUrl + abname);
         GameObject a = AB.LoadAsset<GameObject>(resName);
-    } 
+    }
+    public void asynLoadRes(string abname, string resName)
+    {
+
+    }
     IEnumerator LoadResource(string abname, string resName)
     {
         AssetBundleCreateRequest ascs = AssetBundle.LoadFromFileAsync(Application.streamingAssetsPath + "/" + abname);
