@@ -65,13 +65,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\All_The_Way\Bridging.cs" />
+    <Compile Include="Assets\Script\MovePen\PenCap.cs" />
     <Compile Include="Assets\Script\Data.cs" />
     <Compile Include="Assets\Script\CreateCar.cs" />
     <Compile Include="Assets\Script\All_The_Way\CameraMove.cs" />
     <Compile Include="Assets\Script\All_The_Way\ScoreBridge.cs" />
+    <Compile Include="Assets\Script\MovePen\PenScript.cs" />
     <Compile Include="Assets\Script\CarMapCreate.cs" />
     <Compile Include="Assets\Script\All_The_Way\BridgePool.cs" />
     <Compile Include="Assets\Script\All_The_Way\PlayerCar.cs" />
+    <Compile Include="Assets\Script\MovePen\MovePenGameManager.cs" />
     <Compile Include="Assets\Script\All_The_Way\RoadBlock.cs" />
     <Compile Include="Assets\Script\All_The_Way\ScoreBoard.cs" />
     <Compile Include="Assets\Script\All_The_Way\ATWGameManager.cs" />

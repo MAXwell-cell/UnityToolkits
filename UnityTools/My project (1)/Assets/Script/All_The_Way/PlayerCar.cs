@@ -33,6 +33,7 @@ public class PlayerCar : MonoBehaviour
     /// </summary>
     [HideInInspector] public static bool carCanMove = false;
     [HideInInspector] public GameObject blockInput;
+    private GameObject GMBP;
     void Start()
     {
         try
@@ -53,7 +54,7 @@ public class PlayerCar : MonoBehaviour
         //注册事件监听
         ATWDataGameManager.Instance.OnboardGradeChanged += HandleBoardGradeChanged;
         //实例化桥的对象池
-        bridgePool = gameObject.AddComponent<BridgePool>();
+        bridgePool = GMBP.GetComponent<BridgePool>();
         bridgePool.BridgePrefab = Bridge;
         bridgePool.initBridgePool();
     }
