@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PenCap : MonoBehaviour
+public class Shooter : MonoBehaviour
 {
-    public int capColorNumber;
 }
